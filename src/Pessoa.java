@@ -50,5 +50,103 @@ public class Pessoa {
             bw.close();
         } catch (IOException ignored) {}
     }
+    public static void editarPessoa() {
+        try {
+            System.out.println("Digite o nome da pessoa que deseja editar: ");
+            String nomeAlvo = sc.next();
+
+            File inputFile = new File("pessoas.txt");
+            File tempFile = new File("pessoas_temp.txt");
+
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+            String linha;
+            boolean encontrado = false;
+
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(";");
+                String nome = dados[0];
+
+                if (nome.equalsIgnoreCase(nomeAlvo)) {
+                    System.out.println("Digite o novo nome: ");
+                    String novoNome = sc.next();
+
+                    String novoTipo;
+                    do {
+                        System.out.println("Digite o novo tipo (F - Pessoa Física | J - Pessoa Jurídica): ");
+                        novoTipo = sc.next().toUpperCase();
+                        if (!novoTipo.equals("F") && !novoTipo.equals("J")) {
+                            System.out.println("Opção inválida. Digite 'F' para Pessoa Física ou 'J' para Pessoa Jurídica.");
+                        }
+                    } while (!novoTipo.equals("F") && !novoTipo.equals("J"));
+
+                    writer.write(novoNome + ";" + novoTipo);
+                    writer.newLine();
+                    encontrado = true;
+                } else {
+                    writer.write(linha);
+                    writer.newLine();
+                }
+            }
+
+            writer.close();
+            reader.close();
+
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
+
+            if (encontrado) {
+                System.out.println("Pessoa editada com sucesso.");
+            } else {
+                System.out.println("Pessoa não encontrada.");
+            }
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro ao tentar editar a pessoa. Por favor, tente novamente!");
+        }
+    }
+
+    public static void excluirPessoa() {
+        try {
+            System.out.println("Digite o nome da pessoa que deseja remover: ");
+            String nomeAlvo = sc.next();
+
+            File inputFile = new File("pessoas.txt");
+            File tempFile = new File("pessoas_temp.txt");
+
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+            String linha;
+            boolean removido = false;
+
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(";");
+                String nome = dados[0];
+
+                if (nome.equalsIgnoreCase(nomeAlvo)) {
+                    removido = true;
+                    continue;
+                }
+                writer.write(linha);
+                writer.newLine();
+            }
+
+            writer.close();
+            reader.close();
+
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
+
+            if (removido) {
+                System.out.println("Pessoa removida com sucesso.");
+                return;
+            } else {
+                System.out.println("Pessoa não encontrada.");
+            }
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro ao tentar remover a pessoa. Por favor, tente novamente!");
+        }
+    }
 }
 

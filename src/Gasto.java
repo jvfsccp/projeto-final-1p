@@ -110,6 +110,111 @@ public class Gasto {
             System.out.println("Erro ao calcular lucro.");
         }
     }
+    public static void editarGasto() {
+        try {
+            System.out.print("Digite o endereço do imóvel para editar: ");
+            String enderecoBusca = sc.nextLine();
+
+            File inputFile = new File("gastos.txt");
+            File tempFile = new File("gastos_temp.txt");
+
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+            String linha;
+            boolean encontrado = false;
+
+            System.out.println("O que deseja fazer? (1 - Editar o endereço | 2 - Editar tipo de gasto | 3 - Editar valor gasto | 4 - Editar data)");
+            int opcao = sc.nextInt();
+            sc.nextLine();
+
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(";");
+                if (dados[0].equalsIgnoreCase(enderecoBusca)) {
+                    encontrado = true;
+                    switch (opcao) {
+                        case 1:
+                            System.out.print("Digite o novo endereço: ");
+                            dados[0] = sc.nextLine();
+                            break;
+                        case 2:
+                            System.out.print("Digite o novo tipo de gasto: ");
+                            dados[1] = sc.nextLine();
+                            break;
+                        case 3:
+                            System.out.print("Digite o novo valor gasto: ");
+                            dados[2] = String.valueOf(sc.nextDouble());
+                            sc.nextLine();
+                            break;
+                        case 4:
+                            System.out.print("Digite a nova data (Mês/ano, ex: 05/2025): ");
+                            dados[3] = sc.nextLine();
+                            break;
+                        default:
+                            System.out.println("Opção inválida!");
+                    }
+                    writer.write(String.join(";", dados));
+                } else {
+                    writer.write(linha);
+                }
+                writer.newLine();
+            }
+
+            writer.close();
+            reader.close();
+
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
+
+            if (encontrado) {
+                System.out.println("Gasto editado com sucesso!");
+            } else {
+                System.out.println("Gasto não encontrado.");
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao editar gastos.");
+        }
+    }
+
+    public static void excluirGasto() {
+        try {
+            System.out.print("Digite o endereço do imóvel para remover o gasto: ");
+            String enderecoBusca = sc.nextLine();
+
+            File inputFile = new File("gastos.txt");
+            File tempFile = new File("gastos_temp.txt");
+
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+            String linha;
+            boolean removido = false;
+
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(";");
+                if (dados[0].equalsIgnoreCase(enderecoBusca)) {
+                    removido = true;
+                    continue;
+                }
+                writer.write(linha);
+                writer.newLine();
+            }
+
+            writer.close();
+            reader.close();
+
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
+
+            if (removido) {
+                System.out.println("Gasto removido com sucesso!");
+            } else {
+                System.out.println("Gasto não encontrado.");
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao remover gastos.");
+        }
+    }
 }
 
 
