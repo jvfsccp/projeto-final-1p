@@ -20,6 +20,7 @@ public class MenuCadastro {
             switch (opcao) {
                 case 1:
                     Pessoa.cadastrarPessoa();
+                    Pessoa.salvarPessoasEmArquivo();
                     break;
                 case 2:
                     Imovel.cadastrarImovel();
@@ -35,6 +36,7 @@ public class MenuCadastro {
                     break;
                 case 0:
                     System.out.print("Espero te ver de volta por aqui! Até logo.");
+
                     break;
                 default:
                     System.out.println("Opção inválida. Por favor, tente novamente!");

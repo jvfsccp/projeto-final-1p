@@ -3,9 +3,27 @@ import java.util.Scanner;
 
 public class Gasto {
         static Scanner sc = new Scanner(System.in);
+        static final int MAX = 200;
+        static String[] gastos = new String[MAX];
+        static int totalGastos = 0;
+
+        public static void carregarGastos() {
+            if (totalGastos >= MAX) {
+                System.out.println("Limite de gastos atingido.");
+                return;
+            }
+            try {
+                BufferedReader br = new BufferedReader(new FileReader("gastos.txt"));
+                String linha;
+                while ((linha = br.readLine()) != null && totalGastos < MAX) {
+                    gastos[totalGastos++] = linha;
+                }
+                br.close();
+            } catch (IOException ignored) {}
+        }
 
         public static void cadastrarGasto() {
-            try {
+
                 System.out.print("Endereço do imóvel: ");
                 String endereco = sc.nextLine();
                 System.out.print("Tipo de gasto: ");
@@ -16,15 +34,9 @@ public class Gasto {
                 System.out.print("Mês/ano (Ex: 05/2025): ");
                 String mesAno = sc.nextLine();
 
-                BufferedWriter bw = new BufferedWriter(new FileWriter("gastos.txt", true));
-                bw.write(endereco + ";" + tipo + ";" + valor + ";" + mesAno);
-                bw.newLine();
-                bw.close();
+                gastos[totalGastos++] = endereco + "\n" + tipo + "\n" + valor + "\n" + mesAno;
 
                 System.out.println("Gasto cadastrado com sucesso!");
-            } catch (IOException e) {
-                System.out.println("Erro ao salvar gasto.");
-            }
         }
 
         public static void calcularLucro() {
