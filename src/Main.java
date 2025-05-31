@@ -11,5 +11,8 @@ public class Main {
             Pessoa.cadastrarPessoa();
         }
         MenuCadastro.menuCadastro();
+        Imovel.visualizarImoveis();
+        Imovel.editarImovel();
+        Imovel.excluirImovel();
     }
 } 
