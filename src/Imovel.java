@@ -2,130 +2,104 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Imovel {
-        static Scanner sc = new Scanner(System.in);
-        static final int MAX = 100;
-        static String[] imoveis = new String[MAX];
-        static int totalImoveis = 0;
+    static Scanner sc = new Scanner(System.in);
+    static final int MAX = 100;
+    static String[][] imoveis = new String[MAX][2]; // [][0] = endereco, [][1] = aluguel
+    static int totalImoveis = 0;
 
-        public static void carregarImoveis() {
-            try {
-                BufferedReader br = new BufferedReader(new FileReader("imoveis.txt"));
-                String linha;
-                while ((linha = br.readLine()) != null && totalImoveis < MAX) {
-                    imoveis[totalImoveis++] = linha;
+    public static void carregarImoveis() {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("imoveis.txt"));
+            String linha;
+            while ((linha = br.readLine()) != null && totalImoveis < MAX) {
+                String[] dados = linha.split(";");
+                if (dados.length == 2) {
+                    imoveis[totalImoveis][0] = dados[0];
+                    imoveis[totalImoveis][1] = dados[1];
+                    totalImoveis++;
                 }
-                br.close();
-            } catch (IOException ignored) {}
-        }
-
-        public static void cadastrarImovel() {
-            if (totalImoveis >= MAX) {
-                System.out.println("Limite de imóveis atingido.");
-                return;
             }
-                System.out.print("Endereço: ");
-                String endereco = sc.nextLine();
-                System.out.print("Valor do aluguel: ");
-                double aluguel = sc.nextDouble();
-                sc.nextLine();
+            br.close();
+        } catch (IOException ignored) {}
+    }
 
-                imoveis[totalImoveis++] = "Endereço: " + endereco + "\n" + "Aluguel: " + aluguel + "\n";
-
-                System.out.println("Imóvel cadastrado com sucesso!");
-        }
-
-        public static void salvarImoveisEmArquivo() {
-            try {
-                BufferedWriter bw = new BufferedWriter(new FileWriter("imoveis.txt"));
-                for (int i = 0; i < totalImoveis; i++) {
-                    bw.write(imoveis[i]);
-                    bw.newLine();
-                }
-                bw.close();
-            } catch (IOException ignored) {}
-        }
-
-        public static void visualizarImoveis(){
-            try {
-
-                BufferedReader br = new BufferedReader(new FileReader("imoveis.txt"));
-                String linha;
-                int contador = 1;
-                
-                while ((linha = br.readLine()) != null) {
-                    String[] dados = linha.split(";");
-
-                    String endereco = dados[0];
-                    double aluguel = Double.parseDouble(dados[1]);
-
-                    System.out.println("Imóvel "+ contador +": ");
-                    System.out.println("Endereço: "+ endereco);
-                    System.out.println("Valor do aluguel: R$"+aluguel);
-                    contador++;
-                }
-                br.close();
-
-            } catch (Exception e) {
-                System.out.println("Erro ao ler o arquivo");
+    public static void salvarImoveisEmArquivo() {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("imoveis.txt"));
+            for (int i = 0; i < totalImoveis; i++) {
+                bw.write(imoveis[i][0] + ";" + imoveis[i][1]);
+                bw.newLine();
             }
+            bw.close();
+        } catch (IOException ignored) {}
+    }
+
+    public static void cadastrarImovel() {
+        if (totalImoveis >= MAX) {
+            System.out.println("Limite de imóveis atingido.");
+            return;
         }
+        System.out.print("Endereço: ");
+        String endereco = sc.nextLine();
+        System.out.print("Valor do aluguel: ");
+        String aluguel = sc.nextLine();
 
-        public static void editarImovel() {
-            try {
-                File inputFile = new File("imoveis.txt");
-                File temFile = new File("imoveis_temp.txt");
+        imoveis[totalImoveis][0] = endereco;
+        imoveis[totalImoveis][1] = aluguel;
+        totalImoveis++;
 
-                BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-                BufferedWriter writer = new BufferedWriter(new FileWriter(temFile));
+        salvarImoveisEmArquivo();
+        System.out.println("Imóvel cadastrado com sucesso!");
+    }
 
-                Scanner sc = new Scanner(System.in);
+    public static void visualizarImoveis() {
+        if (totalImoveis == 0) {
+            System.out.println("Nenhum imóvel cadastrado.");
+            return;
+        }
+        for (int i = 0; i < totalImoveis; i++) {
+            System.out.println("Imóvel " + (i + 1) + ":");
+            System.out.println("Endereço: " + imoveis[i][0]);
+            System.out.println("Aluguel: R$" + imoveis[i][1]);
+            System.out.println();
+        }
+    }
 
-                System.out.println("Digite o número do imóvel que deseja editar: ");
-                int numeroImovel = sc.nextInt();
-                sc.nextLine();
+    public static void editarImovel() {
+        visualizarImoveis();
+        System.out.print("Digite o número do imóvel que deseja editar: ");
+        int indice = sc.nextInt() - 1;
+        sc.nextLine();
 
-                int contador = 1;
-                String linha;
+        if (indice >= 0 && indice < totalImoveis) {
+            System.out.print("Novo endereço: ");
+            imoveis[indice][0] = sc.nextLine();
+            System.out.print("Novo valor do aluguel: ");
+            imoveis[indice][1] = sc.nextLine();
 
-                while ((linha = reader.readLine()) != null) {
-                    if (contador == numeroImovel){
+            salvarImoveisEmArquivo();
+            System.out.println("Imóvel atualizado com sucesso!");
+        } else {
+            System.out.println("Índice inválido.");
+        }
+    }
 
-                        System.out.print("Novo endereço: ");
-                        String novoEndereco = sc.nextLine();
-                        System.out.print("Novo valor de aluguel: ");
-                        double novoAluguel = sc.nextDouble();
+    public static void excluirImovel() {
+        visualizarImoveis();
+        System.out.print("Digite o número do imóvel que deseja excluir: ");
+        int indice = sc.nextInt() - 1;
+        sc.nextLine();
 
-                        sc.nextLine();
-
-                        writer.write(novoEndereco+";"+ novoAluguel);
-                        writer.newLine();;
-                    } else {
-                        writer.write(linha);
-                        writer.newLine();
-                    }
-                    contador++;
-                }
-
-                reader.close();
-                writer.close();
-
-                if (inputFile.delete()) {
-                    temFile.renameTo(inputFile);
-                    System.out.println("Imóvel editado com sucesso!");
-                } else {
-                    System.out.println("Erro ao atualizar o arquivo");
-                }
-            } catch (Exception e) {
-                System.out.println("Erro ao editar imóvel");
+        if (indice >= 0 && indice < totalImoveis) {
+            for (int i = indice; i < totalImoveis - 1; i++) {
+                imoveis[i][0] = imoveis[i + 1][0];
+                imoveis[i][1] = imoveis[i + 1][1];
             }
+            totalImoveis--;
+            salvarImoveisEmArquivo();
+            System.out.println("Imóvel excluído com sucesso!");
+        } else {
+            System.out.println("Índice inválido.");
         }
-
-        public static void excluirImovel(){
-            File arquivo = new File("imoveis.txt");
-            if (arquivo.delete()) {
-                System.out.println("Arquivo deletado com sucesso!");
-            } else {
-                System.out.println("Falha ao deletar o arquivo!");
-            }
-        }
+    }
 }
