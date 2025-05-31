@@ -1,2 +1,1 @@
-Nome: João
-Tipo: Pessoa Física
+1;João;Pessoa Física

@@ -30,6 +30,7 @@ public class MenuCadastro {
             System.out.println("1 - Menu de Pessoas");
             System.out.println("2 - Menu de Imóveis");
             System.out.println("3 - Menu de Gastos");
+            System.out.println("4 - Visualizar todos os dados");
             System.out.println("0 - Sair");
             opcao = sc.nextInt();
             sc.nextLine();
@@ -43,6 +44,9 @@ public class MenuCadastro {
                     break;
                 case 3:
                     menuGastos();
+                    break;
+                case 4:
+                    Util.visualizarDados();
                     break;
                 case 0:
                     System.out.println("Saindo do sistema. Até logo!");
