@@ -35,22 +35,6 @@ public class Gasto {
         }
     }
 
-    public static void cadastrarGasto() {
-        System.out.print("Endereço do imóvel: ");
-        String endereco = sc.nextLine();
-        System.out.print("Tipo de gasto: ");
-        String tipo = sc.nextLine();
-        System.out.print("Valor do gasto: ");
-        double valor = sc.nextDouble();
-        sc.nextLine();
-        System.out.print("Mês/ano (Ex: 05/2025): ");
-        String mesAno = sc.nextLine();
-
-        gastos[totalGastos++] = endereco + ";" + tipo + ";" + valor + ";" + mesAno;
-        salvarGastosEmArquivo();
-        System.out.println("Gasto cadastrado com sucesso!");
-    }
-
     public static void cadastrarGastoParaImovel(int indiceImovel) {
         if (indiceImovel < 0 || indiceImovel >= Imovel.totalImoveis) {
             System.out.println("Índice de imóvel inválido.");

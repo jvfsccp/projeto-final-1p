@@ -25,12 +25,13 @@ public class MenuCadastro {
         int opcao;
         do {
             System.out.println("--- Casa Caiu ---");
-            System.out.println("Sistema de Controle de Imóveis");
+            System.out.println("O lugar ideal para o controle financeiro do seu imóvel.");
             System.out.println("Escolha uma opção:");
             System.out.println("1 - Menu de Pessoas");
             System.out.println("2 - Menu de Imóveis");
             System.out.println("3 - Menu de Gastos");
             System.out.println("4 - Visualizar todos os dados");
+            System.out.println("5 - Exportar todos os dados");
             System.out.println("0 - Sair");
             opcao = sc.nextInt();
             sc.nextLine();
@@ -47,6 +48,9 @@ public class MenuCadastro {
                     break;
                 case 4:
                     Util.visualizarDados();
+                    break;
+                case 5:
+                    Util.exportarDadosFormatados();
                     break;
                 case 0:
                     System.out.println("Saindo do sistema. Até logo!");
@@ -76,9 +80,11 @@ public class MenuCadastro {
                     break;
                 case 2:
                     Pessoa.editarPessoa();
+                    Pessoa.salvarPessoasEmArquivo();
                     break;
                 case 3:
                     Pessoa.excluirPessoa();
+                    Pessoa.salvarPessoasEmArquivo();
                     break;
                 case 0:
                     return;
@@ -96,6 +102,7 @@ public class MenuCadastro {
             System.out.println("1 - Cadastrar Imóvel");
             System.out.println("2 - Editar Imóvel");
             System.out.println("3 - Excluir Imóvel");
+            System.out.println("4 - Visualizar imóvel por proprietário");
             System.out.println("0 - Voltar ao menu principal");
             opcao = sc.nextInt();
             sc.nextLine();
@@ -114,6 +121,11 @@ public class MenuCadastro {
                     break;
                 case 3:
                     Imovel.excluirImovel();
+                    break;
+                case 4:
+                    System.out.print("Digite o ID do proprietário: ");
+                    String idProprietario = sc.nextLine();
+                    Imovel.visualizarImoveisPorProprietario(idProprietario);
                     break;
                 case 0:
                     return;

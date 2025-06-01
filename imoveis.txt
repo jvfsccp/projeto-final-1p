@@ -1,2 +1,1 @@
-Avenida Goiás, 606;700.0
-Avenida Sebastian, 205;900
+Avenida teste, 404;900;1

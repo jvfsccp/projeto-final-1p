@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Pessoa {
     static Scanner sc = new Scanner(System.in);
     static final int MAX = 100;
-    static String[][] pessoas = new String[MAX][2]; // [][0] = nome, [][1] = tipo
+    static String[][] pessoas = new String[MAX][3]; // [][0] = nome, [][1] = tipo, [][2] documento
     public static int totalPessoas = 0;
 
     public static void carregarPessoas() {
@@ -13,9 +13,10 @@ public class Pessoa {
             String linha;
             while ((linha = br.readLine()) != null && totalPessoas < MAX) {
                 String[] dados = linha.split(";");
-                if (dados.length == 3) {
+                if (dados.length == 4) {
                     pessoas[totalPessoas][0] = dados[1]; // nome
                     pessoas[totalPessoas][1] = dados[2]; // tipo
+                    pessoas[totalPessoas][2] = dados[3];
                     totalPessoas++;
                 }
             }
@@ -28,7 +29,7 @@ public class Pessoa {
             BufferedWriter bw = new BufferedWriter(new FileWriter("pessoas.txt"));
             for (int i = 0; i < totalPessoas; i++) {
                 int id = i + 1;
-                bw.write(id + ";" + pessoas[i][0] + ";" + pessoas[i][1]);
+                bw.write(id + ";" + pessoas[i][0] + ";" + pessoas[i][1] + ";" + pessoas[i][2]);
                 bw.newLine();
             }
             bw.close();
@@ -41,7 +42,7 @@ public class Pessoa {
             return;
         }
         for (int i = 0; i < totalPessoas; i++) {
-            System.out.printf("Pessoa %d: %s (%s)%n", i + 1, pessoas[i][0], pessoas[i][1]);
+            System.out.printf("Pessoa %d: %s (%s)%n", i + 1, pessoas[i][0], pessoas[i][1], pessoas[i][2]);
         }
     }
 
@@ -53,7 +54,7 @@ public class Pessoa {
 
         System.out.println("Digite seu nome: ");
         String nome = sc.next();
-
+        String documento;
         String tipo;
         do {
             System.out.println("Tipo (F - Pessoa Física | J - Pessoa Jurídica): ");
@@ -63,10 +64,19 @@ public class Pessoa {
             }
         } while (!tipo.equals("F") && !tipo.equals("J"));
 
-        tipo = tipo.equals("F") ? "Pessoa Física" : "Pessoa Jurídica";
+        if (tipo.equals("F")) {
+            tipo = "Pessoa Física";
+            System.out.println("Digite seu CPF: ");
+        } else {
+            tipo = "Pessoa Jurídica";
+            System.out.println("Digite o CNPJ da sua empresa: ");
+        }
+        documento = sc.next();
+
 
         pessoas[totalPessoas][0] = nome;
         pessoas[totalPessoas][1] = tipo;
+        pessoas[totalPessoas][2] = documento;
         totalPessoas++;
 
         salvarPessoasEmArquivo();

@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Imovel {
     static Scanner sc = new Scanner(System.in);
     static final int MAX = 100;
-    static String[][] imoveis = new String[MAX][2]; // [][0] = endereco, [][1] = aluguel
+    static String[][] imoveis = new String[MAX][3]; // [][0] = endereco, [][1] = aluguel
     static int totalImoveis = 0;
 
     public static void carregarImoveis() {
@@ -13,9 +13,10 @@ public class Imovel {
             String linha;
             while ((linha = br.readLine()) != null && totalImoveis < MAX) {
                 String[] dados = linha.split(";");
-                if (dados.length == 2) {
-                    imoveis[totalImoveis][0] = dados[0];
-                    imoveis[totalImoveis][1] = dados[1];
+                if (dados.length == 3) {
+                    imoveis[totalImoveis][0] = dados[0]; // endereco
+                    imoveis[totalImoveis][1] = dados[1]; // aluguel
+                    imoveis[totalImoveis][2] = dados[2]; // idProprietario
                     totalImoveis++;
                 }
             }
@@ -27,7 +28,7 @@ public class Imovel {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("imoveis.txt"));
             for (int i = 0; i < totalImoveis; i++) {
-                bw.write(imoveis[i][0] + ";" + imoveis[i][1]);
+                bw.write(imoveis[i][0] + ";" + imoveis[i][1] + ";" + imoveis[i][2]);
                 bw.newLine();
             }
             bw.close();
@@ -43,9 +44,12 @@ public class Imovel {
         String endereco = sc.nextLine();
         System.out.print("Valor do aluguel: ");
         String aluguel = sc.nextLine();
+        System.out.print("ID do proprietário: ");
+        String idProprietario = sc.nextLine();
 
         imoveis[totalImoveis][0] = endereco;
         imoveis[totalImoveis][1] = aluguel;
+        imoveis[totalImoveis][2] = idProprietario;
         totalImoveis++;
 
         salvarImoveisEmArquivo();
@@ -61,6 +65,7 @@ public class Imovel {
             System.out.println("Imóvel " + (i + 1) + ":");
             System.out.println("Endereço: " + imoveis[i][0]);
             System.out.println("Aluguel: R$" + imoveis[i][1]);
+            System.out.println("ID do proprietário: " + imoveis[i][2]);
             System.out.println();
         }
     }
@@ -100,6 +105,22 @@ public class Imovel {
             System.out.println("Imóvel excluído com sucesso!");
         } else {
             System.out.println("Índice inválido.");
+        }
+    }
+
+    public static void visualizarImoveisPorProprietario(String idProprietario) {
+        boolean encontrado = false;
+        for (int i = 0; i < totalImoveis; i++) {
+            if (imoveis[i][2].equals(idProprietario)) {
+                System.out.println("Imóvel " + (i + 1) + ":");
+                System.out.println("Endereço: " + imoveis[i][0]);
+                System.out.println("Aluguel: R$" + imoveis[i][1]);
+                System.out.println();
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("Nenhum imóvel encontrado para o ID informado.");
         }
     }
 }

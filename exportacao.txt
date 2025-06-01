@@ -1,0 +1,21 @@
+=========== PESSOAS CADASTRADAS ===========
+ID: 1
+Nome: João
+Tipo: Pessoa Física
+----------------------------------------
+
+=========== IMÓVEIS CADASTRADOS ===========
+Imóvel 1
+Endereço: Avenida teste, 404
+Valor do Aluguel: R$ 900
+ID do Proprietário: 1
+----------------------------------------
+
+=========== GASTOS CADASTRADOS ===========
+Gasto 1
+Descrição: Avenida teste, 404
+Valor: R$ Gás
+Imóvel (ID): 120.0
+----------------------------------------
+
+=========== FIM DA EXPORTAÇÃO ===========
