@@ -11,5 +11,6 @@ public class Main {
             Pessoa.cadastrarPessoa();
         }
         MenuCadastro.menuCadastro();
+
     }
 } 

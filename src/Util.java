@@ -47,9 +47,9 @@ public class Util {
             while ((linha = br.readLine()) != null) {
                 String[] dados = linha.split(";");
                 System.out.println("Gasto " + contador++);
-                System.out.println("Descrição: " + dados[0]);
-                System.out.println("Valor: R$ " + dados[1]);
-                System.out.println("Imóvel (ID): " + dados[2]);
+                System.out.println("Descrição: " +dados[1]);
+                System.out.println("Valor: R$ " + dados[2]);
+                System.out.println("Endereço Imóvel: " + dados[0]);
                 System.out.println("-------------------------");
             }
         } catch (IOException e) {
