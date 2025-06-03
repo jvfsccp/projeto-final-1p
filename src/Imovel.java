@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Imovel {
     static Scanner sc = new Scanner(System.in);
     static final int MAX = 100;
-    static String[][] imoveis = new String[MAX][3]; // [][0] = endereco, [][1] = aluguel
+    static String[][] imoveis = new String[MAX][3]; // [][0] = endereco, [][1] = aluguel, [][2] = idProprietario
     static int totalImoveis = 0;
 
     public static void carregarImoveis() {
@@ -14,9 +14,9 @@ public class Imovel {
             while ((linha = br.readLine()) != null && totalImoveis < MAX) {
                 String[] dados = linha.split(";");
                 if (dados.length == 3) {
-                    imoveis[totalImoveis][0] = dados[0]; // endereco
-                    imoveis[totalImoveis][1] = dados[1]; // aluguel
-                    imoveis[totalImoveis][2] = dados[2]; // idProprietario
+                    imoveis[totalImoveis][0] = dados[0]; // Endereço
+                    imoveis[totalImoveis][1] = dados[1]; // Aluguel
+                    imoveis[totalImoveis][2] = dados[2]; // ID do proprietário
                     totalImoveis++;
                 }
             }
@@ -47,9 +47,9 @@ public class Imovel {
         System.out.print("ID do proprietário: ");
         String idProprietario = sc.nextLine();
 
-        imoveis[totalImoveis][0] = endereco;
-        imoveis[totalImoveis][1] = aluguel;
-        imoveis[totalImoveis][2] = idProprietario;
+        imoveis[totalImoveis][0] = endereco; // Salva o endereço no array
+        imoveis[totalImoveis][1] = aluguel; // Salva o aluguel no array
+        imoveis[totalImoveis][2] = idProprietario; // Salva o ID do proprietário no array
         totalImoveis++;
 
         salvarImoveisEmArquivo();
@@ -74,7 +74,7 @@ public class Imovel {
         visualizarImoveis();
         System.out.print("Digite o número do imóvel que deseja editar: ");
         int indice = sc.nextInt() - 1;
-        sc.nextLine();
+        sc.nextLine(); // Consumir a quebra de linha
 
         if (indice >= 0 && indice < totalImoveis) {
             System.out.print("Novo endereço: ");
@@ -93,12 +93,14 @@ public class Imovel {
         visualizarImoveis();
         System.out.print("Digite o número do imóvel que deseja excluir: ");
         int indice = sc.nextInt() - 1;
-        sc.nextLine();
+        sc.nextLine(); // Consumir a quebra de linha
 
         if (indice >= 0 && indice < totalImoveis) {
+            // Mover os imóveis para preencher o espaço do removido
             for (int i = indice; i < totalImoveis - 1; i++) {
                 imoveis[i][0] = imoveis[i + 1][0];
                 imoveis[i][1] = imoveis[i + 1][1];
+                imoveis[i][2] = imoveis[i + 1][2];
             }
             totalImoveis--;
             salvarImoveisEmArquivo();

@@ -149,6 +149,7 @@ public class MenuCadastro {
             System.out.println("1 - Cadastrar Gasto");
             System.out.println("2 - Editar Gasto");
             System.out.println("3 - Excluir Gasto");
+            System.out.println("4 - Calcular Gasto");
             System.out.println("0 - Voltar ao menu principal");
             opcao = sc.nextInt();
             sc.nextLine();
@@ -170,6 +171,9 @@ public class MenuCadastro {
                     break;
                 case 3:
                     Gasto.excluirGasto();
+                    break;
+                case 4:
+                    Gasto.calcularGasto();
                     break;
                 case 0:
                     return;
