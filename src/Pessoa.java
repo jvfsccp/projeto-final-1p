@@ -85,31 +85,35 @@ public class Pessoa {
 
     public static void editarPessoa() {
         visualizarPessoas();
-        System.out.print("Digite o número da pessoa que deseja editar: ");
+        System.out.print("Digite o número da pessoa que deseja editar(0 para sair): ");
         int id = sc.nextInt();
         sc.nextLine();
 
-        if (id < 1 || id > totalPessoas) {
-            System.out.println("Pessoa não encontrada.");
-            return;
+        if(id > 0){
+            if (id < 1 || id > totalPessoas) {
+                System.out.println("Pessoa não encontrada.");
+                return;
+            }
+
+            int indice = id - 1;
+            System.out.print("Novo nome: ");
+            String novoNome = sc.next();
+
+            String novoTipo;
+            do {
+                System.out.print("Novo tipo (F - Pessoa Física | J - Pessoa Jurídica): ");
+                novoTipo = sc.next().toUpperCase();
+            } while (!novoTipo.equals("F") && !novoTipo.equals("J"));
+
+            novoTipo = novoTipo.equals("F") ? "Pessoa Física" : "Pessoa Jurídica";
+
+            pessoas[indice][0] = novoNome;
+            pessoas[indice][1] = novoTipo;
+            salvarPessoasEmArquivo();
+            System.out.println("Pessoa editada com sucesso.");
+        } else {
+            System.out.println("Você saiu da edição de cadastro");
         }
-
-        int indice = id - 1;
-        System.out.print("Novo nome: ");
-        String novoNome = sc.next();
-
-        String novoTipo;
-        do {
-            System.out.print("Novo tipo (F - Pessoa Física | J - Pessoa Jurídica): ");
-            novoTipo = sc.next().toUpperCase();
-        } while (!novoTipo.equals("F") && !novoTipo.equals("J"));
-
-        novoTipo = novoTipo.equals("F") ? "Pessoa Física" : "Pessoa Jurídica";
-
-        pessoas[indice][0] = novoNome;
-        pessoas[indice][1] = novoTipo;
-        salvarPessoasEmArquivo();
-        System.out.println("Pessoa editada com sucesso.");
     }
 
     public static void excluirPessoa() {
