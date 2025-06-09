@@ -47,9 +47,9 @@ public class Imovel {
         System.out.print("ID do proprietário: ");
         String idProprietario = sc.nextLine();
 
-        imoveis[totalImoveis][0] = endereco; // Salva o endereço no array
-        imoveis[totalImoveis][1] = aluguel; // Salva o aluguel no array
-        imoveis[totalImoveis][2] = idProprietario; // Salva o ID do proprietário no array
+        imoveis[totalImoveis][0] = endereco; 
+        imoveis[totalImoveis][1] = aluguel; 
+        imoveis[totalImoveis][2] = idProprietario; 
         totalImoveis++;
 
         salvarImoveisEmArquivo();
@@ -72,20 +72,22 @@ public class Imovel {
 
     public static void editarImovel() {
         visualizarImoveis();
-        System.out.print("Digite o número do imóvel que deseja editar: ");
+        System.out.print("Digite o número do imóvel que deseja editar(0 para sair): ");
         int indice = sc.nextInt() - 1;
-        sc.nextLine(); // Consumir a quebra de linha
+        sc.nextLine();
 
-        if (indice >= 0 && indice < totalImoveis) {
-            System.out.print("Novo endereço: ");
-            imoveis[indice][0] = sc.nextLine();
-            System.out.print("Novo valor do aluguel: ");
-            imoveis[indice][1] = sc.nextLine();
+        if(indice > 0){
+            if (indice >= 0 && indice < totalImoveis) {
+                System.out.print("Novo endereço: ");
+                imoveis[indice][0] = sc.nextLine();
+                System.out.print("Novo valor do aluguel: ");
+                imoveis[indice][1] = sc.nextLine();
 
-            salvarImoveisEmArquivo();
-            System.out.println("Imóvel atualizado com sucesso!");
-        } else {
-            System.out.println("Índice inválido.");
+                salvarImoveisEmArquivo();
+                System.out.println("Imóvel atualizado com sucesso!");
+            } else {
+                System.out.println("Índice inválido.");
+            }
         }
     }
 
@@ -93,10 +95,10 @@ public class Imovel {
         visualizarImoveis();
         System.out.print("Digite o número do imóvel que deseja excluir: ");
         int indice = sc.nextInt() - 1;
-        sc.nextLine(); // Consumir a quebra de linha
+        sc.nextLine();
 
         if (indice >= 0 && indice < totalImoveis) {
-            // Mover os imóveis para preencher o espaço do removido
+            
             for (int i = indice; i < totalImoveis - 1; i++) {
                 imoveis[i][0] = imoveis[i + 1][0];
                 imoveis[i][1] = imoveis[i + 1][1];
