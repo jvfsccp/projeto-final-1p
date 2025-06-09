@@ -110,9 +110,9 @@ public class Pessoa {
             pessoas[indice][0] = novoNome;
             pessoas[indice][1] = novoTipo;
             salvarPessoasEmArquivo();
-            System.out.println("Pessoa editada com sucesso.");
+            System.out.println("Pessoa editada com sucesso!");
         } else {
-            System.out.println("Você saiu da edição de cadastro");
+            System.out.println("Você saiu da edição de cadastro!");
         }
     }
 
