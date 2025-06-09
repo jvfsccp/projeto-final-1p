@@ -85,7 +85,7 @@ public class Pessoa {
 
     public static void editarPessoa() {
         visualizarPessoas();
-        System.out.print("Digite o número da pessoa que deseja editar(0 para sair): ");
+        System.out.print("Digite o número da pessoa que deseja editar (0 para sair): ");
         int id = sc.nextInt();
         sc.nextLine();
 
@@ -118,22 +118,25 @@ public class Pessoa {
 
     public static void excluirPessoa() {
         visualizarPessoas();
-        System.out.print("Digite o número da pessoa que deseja remover: ");
+        System.out.print("Digite o número da pessoa que deseja remover (0 para sair): ");
         int id = sc.nextInt();
         sc.nextLine();
+        if (id > 0) {
+            if (id < 1 || id > totalPessoas) {
+                System.out.println("Pessoa não encontrada.");
+                return;
+            }
 
-        if (id < 1 || id > totalPessoas) {
-            System.out.println("Pessoa não encontrada.");
-            return;
+            int indice = id - 1;
+            for (int i = indice; i < totalPessoas - 1; i++) {
+                pessoas[i][0] = pessoas[i + 1][0];
+                pessoas[i][1] = pessoas[i + 1][1];
+            }
+            totalPessoas--;
+            salvarPessoasEmArquivo();
+            System.out.println("Pessoa removida com sucesso.");
+        }else{
+            System.out.println("Você saiu da edição de cadastro!");
         }
-
-        int indice = id - 1;
-        for (int i = indice; i < totalPessoas - 1; i++) {
-            pessoas[i][0] = pessoas[i + 1][0];
-            pessoas[i][1] = pessoas[i + 1][1];
-        }
-        totalPessoas--;
-        salvarPessoasEmArquivo();
-        System.out.println("Pessoa removida com sucesso.");
     }
 }

@@ -72,7 +72,7 @@ public class Imovel {
 
     public static void editarImovel() {
         visualizarImoveis();
-        System.out.print("Digite o número do imóvel que deseja editar(0 para sair): ");
+        System.out.print("Digite o número do imóvel que deseja editar (0 para sair): ");
         int indice = sc.nextInt() - 1;
         sc.nextLine();
 
@@ -88,27 +88,33 @@ public class Imovel {
             } else {
                 System.out.println("Índice inválido.");
             }
+        }else{
+            System.out.println("Você saiu da edição de imóvel!");
         }
     }
 
     public static void excluirImovel() {
         visualizarImoveis();
-        System.out.print("Digite o número do imóvel que deseja excluir: ");
+        System.out.print("Digite o número do imóvel que deseja excluir (0 para sair): ");
         int indice = sc.nextInt() - 1;
         sc.nextLine();
 
-        if (indice >= 0 && indice < totalImoveis) {
-            
-            for (int i = indice; i < totalImoveis - 1; i++) {
-                imoveis[i][0] = imoveis[i + 1][0];
-                imoveis[i][1] = imoveis[i + 1][1];
-                imoveis[i][2] = imoveis[i + 1][2];
+        if ( indice > 0) {
+            if (indice >= 0 && indice < totalImoveis) {
+
+                for (int i = indice; i < totalImoveis - 1; i++) {
+                    imoveis[i][0] = imoveis[i + 1][0];
+                    imoveis[i][1] = imoveis[i + 1][1];
+                    imoveis[i][2] = imoveis[i + 1][2];
+                }
+                totalImoveis--;
+                salvarImoveisEmArquivo();
+                System.out.println("Imóvel excluído com sucesso!");
+            } else {
+                System.out.println("Índice inválido.");
             }
-            totalImoveis--;
-            salvarImoveisEmArquivo();
-            System.out.println("Imóvel excluído com sucesso!");
-        } else {
-            System.out.println("Índice inválido.");
+        }else{
+            System.out.println("Você saiu da exclusão de imóvel!");
         }
     }
 

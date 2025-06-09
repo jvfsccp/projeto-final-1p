@@ -75,7 +75,6 @@ public class Gasto {
                     mapaGastos.put(endereco, mapaGastos.getOrDefault(endereco, 0.0) + valor);
                 }
             }
-
             brGastos.close();
 
             if (mapaGastos.isEmpty()) {
@@ -90,6 +89,7 @@ public class Gasto {
             System.out.println("Erro ao calcular gastos.");
         }
     }
+
     public static void editarGasto() {
         try {
             System.out.print("Digite o endereço do imóvel para editar(digite SAIR para finalizar edição): ");
