@@ -3,6 +3,18 @@ ID: 1
 Nome: João
 Tipo: Pessoa Física
 ----------------------------------------
+ID: 2
+Nome: Lucilia
+Tipo: Pessoa Física
+----------------------------------------
+ID: 3
+Nome: teste
+Tipo: Pessoa Física
+----------------------------------------
+ID: 4
+Nome: Lucilia
+Tipo: Pessoa Física
+----------------------------------------
 
 =========== IMÓVEIS CADASTRADOS ===========
 Imóvel 1
@@ -10,12 +22,22 @@ Endereço: Avenida teste, 404
 Valor do Aluguel: R$ 900
 ID do Proprietário: 1
 ----------------------------------------
+Imóvel 2
+Endereço: Avenida Principal, 720
+Valor do Aluguel: R$ 750
+ID do Proprietário: 1
+----------------------------------------
 
 =========== GASTOS CADASTRADOS ===========
 Gasto 1
-Descrição: Avenida teste, 404
-Valor: R$ Gás
-Imóvel (ID): 120.0
+Descrição: Gás
+Valor: R$ 120.0
+Data do gasto: 06/2025
+----------------------------------------
+Gasto 2
+Descrição: Manutenção 
+Valor: R$ 120.0
+Data do gasto: 06/2025
 ----------------------------------------
 
 =========== FIM DA EXPORTAÇÃO ===========

@@ -1,1 +1,2 @@
 Avenida teste, 404;900;1
+Avenida Principal, 720;750;1

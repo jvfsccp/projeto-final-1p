@@ -104,9 +104,9 @@ public class Util {
                     String[] dados = linha.split(";");
                     if (dados.length >= 3) {
                         bw.write("Gasto " + id++ + "\n");
-                        bw.write("Descrição: " + dados[0] + "\n");
-                        bw.write("Valor: R$ " + dados[1] + "\n");
-                        bw.write("Imóvel (ID): " + dados[2] + "\n");
+                        bw.write("Descrição: " + dados[1] + "\n");
+                        bw.write("Valor: R$ " + dados[2] + "\n");
+                        bw.write("Data do gasto: " + dados[3] + "\n");
                         bw.write("----------------------------------------\n");
                     }
                 }
